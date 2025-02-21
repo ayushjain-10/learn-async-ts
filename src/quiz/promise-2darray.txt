@@ -1,4 +1,6 @@
-- Extract the code in the setTimeout function and replace the setTimeout function  with the extracted code. Then run the main script. 
-- Is there a difference in the flow of execution from when the code was in the setTimeout function?
-- Is the flow of execution in both these examples different from the flow of execution with the examples using the fetch() API, which also returns a promise? 
-- If yes, explain the code execution difference. Add your explanation to this file.
+There's a distinction in how the code executes. When using the setTimeout function, the message "returning from sum" appears before the summing of the array is complete, which shows asynchronous behavior. 
+Without the setTimeout, the function completes the array summing before returning, showing synchronous execution.
+
+The version using setTimeout operates similarly to the fetch() API call, as both handle tasks asynchronously. 
+However, with fetch(), the callbacks are invoked earlier in the process compared to those delayed by setTimeout. 
+Removing the setTimeout changes the sum function’s behavior—it now executes step-by-step in the order written, rather than asynchronously.

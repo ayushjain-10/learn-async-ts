@@ -34,54 +34,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var aliceTumbling1 = [
-    { transform: 'rotate(0) scale(1)' },
-    { transform: 'rotate(360deg) scale(0)' }
-];
-var aliceTiming1 = {
-    duration: 2000,
-    iterations: 1,
-    fill: 'forwards'
-};
-var alice10 = document.querySelector("#alice1");
-var alice20 = document.querySelector("#alice2");
-var alice30 = document.querySelector("#alice3");
-function runAnimations() {
+function sum2DArrayConcurrent(arr) {
     return __awaiter(this, void 0, void 0, function () {
-        var err_1;
+        var rowPromises, rowSums, error_1;
+        var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (!alice10 || !alice20 || !alice30) {
-                        console.warn("#alice not found");
-                        return [2 /*return*/];
-                    }
-                    _a.label = 1;
+                    _a.trys.push([0, 2, , 3]);
+                    rowPromises = arr.map(function (row) { return __awaiter(_this, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            return [2 /*return*/, row.reduce(function (sum, num) { return sum + num; }, 0)];
+                        });
+                    }); });
+                    return [4 /*yield*/, Promise.all(rowPromises)];
                 case 1:
-                    _a.trys.push([1, 5, , 6]);
-                    return [4 /*yield*/, alice10.animate(aliceTumbling1, aliceTiming1).finished];
+                    rowSums = _a.sent();
+                    return [2 /*return*/, rowSums.reduce(function (total, sum) { return total + sum; }, 0)];
                 case 2:
-                    _a.sent();
-                    return [4 /*yield*/, alice20.animate(aliceTumbling1, aliceTiming1).finished];
-                case 3:
-                    _a.sent();
-                    return [4 /*yield*/, alice30.animate(aliceTumbling1, aliceTiming1).finished];
-                case 4:
-                    _a.sent();
-                    return [3 /*break*/, 6];
-                case 5:
-                    err_1 = _a.sent();
-                    if (err_1 instanceof Error) {
-                        alert("Error during animation: ".concat(err_1.message));
-                    }
-                    else {
-                        alert('An unknown error occurred during animation');
-                    }
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    error_1 = _a.sent();
+                    console.error('Error calculating sum:', error_1);
+                    throw error_1;
+                case 3: return [2 /*return*/];
             }
         });
     });
 }
-// Start the animation sequence
-runAnimations();
+// Example usage
+var sampleArray2D = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+sum2DArrayConcurrent(sampleArray2D)
+    .then(function (total) { return console.log('Total sum:', total); })
+    .catch(function (err) { return console.error('Error:', err); });
